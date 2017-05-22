@@ -1,0 +1,64 @@
+rproxy:
+    extends:
+        file: common.yml
+        service: web_proxy
+    ports:
+     - "19000:8000"
+    environment:
+     - SERVICE_SITE_ENDPOINT=web:8000
+    volumes:
+     - ./rproxy/nginx/nginx.conf:/opt/openresty/nginx/conf/nginx.conf:ro
+     - ./web/btc_hedge:/code:ro
+    links:
+     - web:web
+
+web:
+    extends:
+        file: common.yml
+        service: web
+    environment:
+     - DB_SERVICE=db_proxy:5433
+     - CACHE_SERVICE=cache:11211
+     - REDIS_SERVICE=redis:6379
+    volumes:
+     - ./web/btc_hedge:/code
+    links:
+     - db_proxy:db_proxy
+     - cache:cache
+     - redis:redis
+    command: ./run-site.sh
+
+celery_worker:
+    extends:
+        file: common.yml
+        service: web
+    environment:
+     - DB_SERVICE=db_proxy:5433
+     - CACHE_SERVICE=cache:11211
+     - REDIS_SERVICE=redis:6379
+    volumes:
+     - ./web/btc_hedge:/code
+    links:
+     - db_proxy:db_proxy
+     - cache:cache
+     - redis:redis
+    command: ./run-task-worker.sh
+
+redis:
+    image: "redis:3"
+    log_opt:
+        max-size: "5m"
+        max-file: "1"
+
+cache:
+    image: "memcached:1.4"
+    log_opt:
+        max-size: "5m"
+        max-file: "1"
+
+db_proxy:
+    extends:
+        file: common.yml
+        service: db
+    volumes:
+     - ./db/pgdata:/var/lib/postgresql/data
