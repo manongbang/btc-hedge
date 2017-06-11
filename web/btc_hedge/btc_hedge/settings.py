@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'djcelery',
     # my apps
+    'common',
+    'market',
 ]
 
 MIDDLEWARE_CLASSES = [

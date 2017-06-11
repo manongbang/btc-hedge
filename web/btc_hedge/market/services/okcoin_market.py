@@ -25,4 +25,4 @@ class okcoinMarket(BasePublicMarket, BasePrivateMarket):
 
     # override
     def depth(self):
-        return self.future.depth('btc_usd')
+        return self.spot.depth('btc_usd')

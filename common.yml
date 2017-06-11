@@ -1,5 +1,5 @@
 web_proxy:
-    image: "nginx:1.9.4"
+    image: "btc-hedge/openresty:1.9-dns"
     # restart: always
     log_opt:
         max-size: "5m"
