@@ -102,3 +102,7 @@ ENV/
 
 # other config files
 *.version
+
+# runtime files
+*.pid
+static/
