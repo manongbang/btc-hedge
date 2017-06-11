@@ -1,0 +1,17 @@
+django==1.9.0
+django-cors-headers
+djangorestframework
+uWSGI==2.0.11.1
+python-memcached
+requests
+django_braces==1.8.1
+celery==3.1.18
+django-celery
+django-sendsms
+psycopg2
+simplejson==3.8.0
+mock==1.3.0
+coverage==3.6
+django-concurrency==1.3.2
+hiredis==0.2.0
+redis==2.10.5

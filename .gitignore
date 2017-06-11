@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# other config files
+*.version
+
+# runtime files
+*.pid
+static/

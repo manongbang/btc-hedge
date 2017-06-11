@@ -1,0 +1,31 @@
+web_proxy:
+    image: "btc-hedge/openresty:1.9-dns"
+    # restart: always
+    log_opt:
+        max-size: "5m"
+        max-file: "5"
+
+web:
+    image: "btc-hedge/web:latest"
+    # restart: always
+    log_opt:
+        max-size: "5m"
+        max-file: "5"
+    environment:
+     - DJANGO_DEBUG=1
+     - DJANGO_LOG_LEVEL=DEBUG
+     - DJANGO_HOST=localhost
+     - POSTGRES_PASSWORD=btc-hedge@2017
+     - POSTGRES_USER=btc_hedge
+     - POSTGRES_DATABASE=btc_hedge
+
+db:
+    image: "btc-hedge/postgres-proxy:9.4"
+    # restart: always
+    environment:
+     - POSTGRES_PASSWORD=btc-hedge@2017
+     - POSTGRES_USER=btc_hedge
+     - POSTGRES_DATABASE=btc_hedge
+    log_opt:
+        max-size: "10m"
+        max-file: "5"
