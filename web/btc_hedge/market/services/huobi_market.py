@@ -18,8 +18,8 @@ class huobiMarket(BasePublicMarket, BasePrivateMarket):
 
     # override
     def ticker(self):
-        return self.service.ticker(currency='btc_cny')
+        return self.service.ticker(coin_currency='btc_cny')
 
     # override
     def depth(self):
-        return self.service.depth(currency='btc_cny')
+        return self.service.depth(coin_currency='btc_cny')
